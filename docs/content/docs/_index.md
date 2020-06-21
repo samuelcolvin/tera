@@ -372,7 +372,7 @@ It is equivalent to `replace(lower(name), from="doctor", to="Dr.")` if we were t
 
 Calling filters on a incorrect type like trying to capitalize an array or using invalid types for arguments will result in a error.
 
-Filters are functions with the `fn(Value, HashMap<String, Value>) -> Result<Value>` definition and custom ones can be added like so:
+Filters are functions with the `fn(&Value, &HashMap<String, Value>) -> Result<Value>` definition and custom ones can be added like so:
 
 ```rust
 tera.register_filter("upper", string::upper);
@@ -446,7 +446,7 @@ Functions are Rust code that return a `Result<Value>` from the given params.
 
 Quite often, functions will need to capture some external variables, such as a `url_for` global function needing
 the list of URLs for example.
-To make that work, the type of `GlobalFn` is a boxed closure: `Box<Fn(HashMap<String, Value>) -> Result<Value> + Sync + Send>`.
+To make that work, the type of `GlobalFn` is a boxed closure: `Box<Fn(&HashMap<String, Value>) -> Result<Value> + Sync + Send>`.
 
 Here's an example on how to implement a very basic function:
 
